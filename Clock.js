@@ -4,6 +4,8 @@ class Clock extends React.Component {
     this.state = this.getTime();
   }
 
+
+
   setTimer() {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(this.updateClock.bind(this), 1000);
