@@ -6,6 +6,17 @@ class Clock extends React.Component {
     this.state = this.getTime();
   }
 
+  Clock.propTypes = {
+    title: React.PropTypes.string,
+    count: React.PropTypes.number,
+    isOn: React.PropTypes.bool,
+    onDisplay: React.PropTypes.func,
+    symbol: React.PropTypes.symbol,
+    user: React.PropTypes.object,
+    displayEle: React.PropTypes.element,
+    name: React.PropTypes.node
+  }
+
   componentDidMount() {
     this.setTimer();
   }
@@ -36,7 +47,17 @@ class Clock extends React.Component {
 
   // ...
   render() {
-
+    <Clock displayElement={
+      <div>Name</div>
+      <div>Age</div>
+    }></Clock>
+    // Valid
+    <Clock displayElement={
+      <div>
+        <div>Name</div>
+        <div>Age</div>
+      </div>
+    }></Clock>
   }
 }
 

@@ -9,6 +9,10 @@ class Header extends React.Component {
     }
   }
 
+  Header.defaultProps = {
+    title: 'Github activity'
+  }
+
   // toggle visibility when run on the state
   showSearch() {
     this.setState({
