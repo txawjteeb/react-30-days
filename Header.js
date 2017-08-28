@@ -29,19 +29,27 @@ class Header extends React.Component {
       searchInputClasses.push("active");
     }
 
-    const MenuButton = (props) => (
-      <div className="menuIcon">
-        <div className="dashTop"></div>
-        <div className="dashBottom"></div>
-        <div className="circle"></div>
-      </div>
-    )
+    const wrapperStyle = {
+      backgroundColor: 'rgba(251, 202, 43, 1)'
+    }
+
+    const titleStyle = {
+      color: '#111111'
+    }
+
+    const menuColor = {
+      backgroundColor: '#111111'
+    }
 
     return (
-      <div className="header">
-        <MenuButton />
+      <div style={wrapperStyle} className="header">
+        <div className="menuIcon">
+          <div className="dashTop" style={menuColor}></div>
+          <div className="dashBottom" style={menuColor}></div>
+          <div className="circle" style={menuColor}></div>
+        </div>
 
-        <span className="title">
+        <span style={titleStyle} className="title">
           {this.props.title}
         </span>
 
@@ -52,6 +60,7 @@ class Header extends React.Component {
 
         {/* Adding an onClick handler to call the showSearch button */}
         <div
+          style={titleStyle}
           onClick={this.showSearch.bind(this)}
           className="fa fa-search searchIcon"></div>
       </div>
