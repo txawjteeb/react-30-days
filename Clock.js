@@ -6,6 +6,26 @@ class Clock extends React.Component {
     this.state = this.getTime();
   }
 
+  const Formatter = (props) => {
+  let children = props.format.split('').map((e, idx) => {
+    if (e === 'h') {
+      return <Hour key={idx} {...props} />
+    } else if (e === 'm') {
+      return <Minute key={idx} {...props} />
+    } else if (e === 's') {
+      return <Second key={idx} {...props} />
+    } else if (e === 'p') {
+      return <Ampm key={idx} {...props} />
+    } else if (e === ' ') {
+      return <span key={idx}> </span>;
+    } else {
+      return <Separator key={idx} {...props} />
+    }
+  });
+
+  return <span>{children}</span>;
+}
+
   Clock.propTypes = {
     title: React.PropTypes.string,
     count: React.PropTypes.number,
@@ -17,17 +37,22 @@ class Clock extends React.Component {
     name: React.PropTypes.node
   }
 
+  state = { currentTime: new Date() }
   componentDidMount() {
-    this.setTimer();
+    this.setState({
+      currentTime: new Date()
+    }, this.updateTime);
+  }
+  componentWillUnmount() {
+    if (this.timerId) {
+      clearTimeout(this.timerId)
+    }
   }
 
   setTimer() {
     this.timeout = setTimeout(this.updateClock.bind(this), 1000);
   }
 
-  updateClock() {
-    this.setState(this.getTime, this.setTimer);
-  }
 
   getTime() {
     const currentTime = new Date();
@@ -39,25 +64,31 @@ class Clock extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
+  updateTime = e => {
+    this.timerId = setTimeout(() => {
+      this.setState({
+        currentTime: new Date()
+      }, this.updateTime);
+    })
   }
-
-  // ...
+  
   render() {
-    <Clock displayElement={
-      <div>Name</div>
-      <div>Age</div>
-    }></Clock>
-    // Valid
-    <Clock displayElement={
-      <div>
-        <div>Name</div>
-        <div>Age</div>
+    const { currentTime } = this.state
+    const hour = currentTime.getHours();
+    const minute = currentTime.getMinutes();
+    const second = currentTime.getSeconds();
+
+    return (
+      <div className='clock'>
+        <Formatter
+          {...this.props}
+          state={this.state}
+          hours={hour}
+          minutes={minute}
+          seconds={second}
+        />
       </div>
-    }></Clock>
+    )
   }
 }
 
