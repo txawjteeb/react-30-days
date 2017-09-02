@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'whatwg-fetch';
 
 const a = [1, 10, 100, 1000, 10000];
 const App = (props) => {
