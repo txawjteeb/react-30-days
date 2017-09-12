@@ -4,8 +4,29 @@ import './App.css';
 import TimeForm from './TimeForm';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom'
+
+// We'll load our views from the `src/views`
+// directory
+import Home from './views/Home/Home';
+import About from './views/About/About';
+
+const App = props => {
+  return (
+    <Router>
+      <Switch>
+        <Route
+          path="/about"
+          component={About} />
+        <Route
+          path="*"
+          component={Home} />
+      </Switch>
+    </Router>
+  )
+}
 
 class App extends React.Component {
   constructor(props) {
