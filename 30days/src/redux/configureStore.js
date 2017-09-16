@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux';
-import {createStore} from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { rootReducer, initialState } from './reducers'
+import { reducer, initialState as userInitialState } from './currentUser'
 
 const Root = (props) => {
   
@@ -13,11 +14,26 @@ const Root = (props) => {
 
 export const configureStore = () => {
   const store = createStore(
-    rootReducer, // root reducer
-    initialState, // our initialState
+    combineReducers({
+      time: rootReducer,
+      user: reducer
+    }), // root reducer
+    {
+      time: initialState, 
+      user: userInitialState
+    }, // our initialState
   );
 
   return store;
 }
+
+export const login = (user) => ({
+  type: types.LOGIN,
+  payload: user
+})
+  // ...
+export const logout = () => ({
+  type: types.LOGOUT,
+})
 
 export default configureStore;
