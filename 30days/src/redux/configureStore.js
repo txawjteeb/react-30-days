@@ -1,7 +1,9 @@
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { rootReducer, initialState } from './reducers'
 import { reducer, initialState as userInitialState } from './currentUser'
+import loggingMiddleware from './loggingMiddleware';
+import apiMiddleware from './apiMiddleware';
 
 const Root = (props) => {
   
@@ -12,16 +14,23 @@ const Root = (props) => {
   );
 }
 
+  const store = createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(
+      apiMiddleware,
+      loggingMiddleware,
+    )
+  );
+
 export const configureStore = () => {
   const store = createStore(
-    combineReducers({
-      time: rootReducer,
-      user: reducer
-    }), // root reducer
-    {
-      time: initialState, 
-      user: userInitialState
-    }, // our initialState
+    rootReducer,
+    initialState,
+    applyMiddleware(
+      apiMiddleware,
+      loggingMiddleware,
+    )
   );
 
   return store;

@@ -1,24 +1,16 @@
-import * as types from './types';
+import { combineReducers } from 'redux';
 
-{
-  type: types.FETCH_NEW_TIME,
-  payload: new Date().toString() // Any serializable value
-}
+import * as currentUser from './currentUser';
+import * as currentTime from './currentTime';
 
-// Initial (starting) state
-const initialState = {
-  currentTime: new Date().toString()
-}
+export const rootReducer = combineReducers({
+  currentTime: currentTime.reducer,
+  currentUser: currentUser.reducer,
+})
 
-// Our root reducer starts with the initial state
-// and must return a representation of the next state
-export const rootReducer = (state = initialState, action) => {
-  switch(action.type) {
-    case types.FETCH_NEW_TIME:
-      return { ...state, currentTime: action.payload}
-    default:
-      return state;
-  }
+export const initialState = {
+  currentTime: currentTime.initialState,
+  currentUser: currentUser.initialState,
 }
 
 export default rootReducer
