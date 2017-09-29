@@ -1,10 +1,15 @@
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
+
+import Timeline from '../Timeline';
+
 describe('Timeline', () => {
 
-  it('passing test', () => {
-    expect(true).toBeTruthy();
-  })
+	it('wraps content in a div with .notificationsFrame class', () => {
+	    const wrapper = TestUtils.renderIntoDocument(<Timeline />);
+	    const node =
+	    TestUtils
+	    	.findRenderedDOMComponentWithClass(wrapper, 'notificationsFrame');
+	});
 
-  it('failing test', () => {
-    expect(false).toBeTruthy();
-  })
 })
